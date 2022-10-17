@@ -63,3 +63,5 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            CACHE_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
