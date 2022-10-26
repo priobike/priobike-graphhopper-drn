@@ -64,4 +64,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            CACHE_DATE=${{ github.event.repository.updated_at }}
+            CACHE_DATE=${{ github.event.repository.updated_at }}-${{ github.run_id }}-${{ github.run_attempt }}
