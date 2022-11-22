@@ -24,11 +24,11 @@ do
 done
 echo "Postgres server is up!"
 
-echo "Running drn_transform.py..."
+echo "Transforming DRN into OSM..."
 python3 drn_transform.py
-echo "Running osm_extract.py..."
+echo "Preparing OSM dataset outside of Hamburg..."
 python3 osm_extract.py
-echo "Running postgis_connector.py..."
+echo "Find matches between DRN nodes and OSM nodes..."
 python3 postgis_connector.py
-echo "Running map_conflation.py..."
+echo "Conflating OSM and DRN..."
 python3 map_conflation.py
