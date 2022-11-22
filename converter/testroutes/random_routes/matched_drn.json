@@ -1,0 +1,139 @@
+{
+  "route": [
+    {
+      "lon": 9.99834,
+      "lat": 53.553982,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 0,
+      "distanceToNextSignal": 150.32653702228342
+    },
+    {
+      "lon": 9.999661,
+      "lat": 53.554787,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 125.26660378379566,
+      "distanceToNextSignal": 25.05993323848776
+    },
+    {
+      "lon": 9.999731,
+      "lat": 53.554802,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 130.19698983392738,
+      "distanceToNextSignal": 20.129547188356042
+    },
+    {
+      "lon": 9.999938294246848,
+      "lat": 53.55493419356709,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 150.32653702228342,
+      "distanceToNextSignal": 0
+    },
+    {
+      "lon": 10.000631541796071,
+      "lat": 53.5553762843043,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/200_41",
+      "distanceOnRoute": 217.64493018395416,
+      "distanceToNextSignal": 0
+    },
+    {
+      "lon": 10.000744,
+      "lat": 53.555448,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 228.5652492103922,
+      "distanceToNextSignal": null
+    },
+    {
+      "lon": 10.001143,
+      "lat": 53.555809,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 276.664013760843,
+      "distanceToNextSignal": null
+    },
+    {
+      "lon": 10.001297,
+      "lat": 53.555878,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 289.4364018623165,
+      "distanceToNextSignal": null
+    },
+    {
+      "lon": 10.001443,
+      "lat": 53.556036,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 309.507435905677,
+      "distanceToNextSignal": null
+    },
+    {
+      "lon": 10.001708,
+      "lat": 53.556223,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 336.73940960705494,
+      "distanceToNextSignal": null
+    },
+    {
+      "lon": 10.002553,
+      "lat": 53.556632,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 408.90575900041165,
+      "distanceToNextSignal": null
+    },
+    {
+      "lon": 10.002855,
+      "lat": 53.556514,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 432.8437221643233,
+      "distanceToNextSignal": null
+    }
+  ],
+  "signalGroups": {
+    "hamburg/200_41": {
+      "label": "hamburg/200_41",
+      "position": {
+        "lon": 10.0006337,
+        "lat": 53.5553729
+      },
+      "id": "hamburg/200_41",
+      "lsaId": "1908",
+      "connectionId": "41",
+      "laneType": "Radfahrer"
+    }
+  },
+  "crossings": [
+    {
+      "name": "Ferdinandstor",
+      "position": {
+        "lon": 10.000860413554989,
+        "lat": 53.555553326549756
+      },
+      "connected": true
+    },
+    {
+      "name": "Ballindamm / Brandsende",
+      "position": {
+        "lon": 9.999938294246848,
+        "lat": 53.55493419356709
+      },
+      "connected": false
+    },
+    {
+      "name": "LSA 2535",
+      "position": {
+        "lon": 10.002553,
+        "lat": 53.556632
+      },
+      "connected": true
+    }
+  ]
+}

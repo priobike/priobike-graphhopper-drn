@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "maptransformer"
+version = "0.1.0"
+description = ""
+authors = ["MaX-Lo <lorenz_max@protonmail.com>", "Philipp Matthes <philipp.matthes@tu-dresden.de>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+lxml = "^4.8.0"
+python-dotenv = "^0.20.0"
+lxml-stubs = "^0.4.0"
+pyproj = "^3.3.1"
+pyrosm = "^0.6.1"
+osmium = "^3.3.0"
+psycopg2 = "^2.9.5"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

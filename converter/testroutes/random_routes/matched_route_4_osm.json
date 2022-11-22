@@ -1,0 +1,174 @@
+{
+  "route": [
+    {
+      "lon": 9.998326,
+      "lat": 53.553991,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 0,
+      "distanceToNextSignal": 151.0518477522226
+    },
+    {
+      "lon": 9.999920245664757,
+      "lat": 53.55496093266947,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 151.0518477522226,
+      "distanceToNextSignal": 0
+    },
+    {
+      "lon": 9.999922,
+      "lat": 53.554962,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/200_41",
+      "distanceOnRoute": 151.21806686987975,
+      "distanceToNextSignal": 68.816255838188
+    },
+    {
+      "lon": 10.000413,
+      "lat": 53.55533,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/200_41",
+      "distanceOnRoute": 203.5281280306466,
+      "distanceToNextSignal": 16.50619467742115
+    },
+    {
+      "lon": 10.00061462803657,
+      "lat": 53.555417066652154,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/200_41",
+      "distanceOnRoute": 220.03432270806775,
+      "distanceToNextSignal": 0
+    },
+    {
+      "lon": 10.000633,
+      "lat": 53.555425,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/266_39",
+      "distanceOnRoute": 221.5383346911531,
+      "distanceToNextSignal": 190.6886739560043
+    },
+    {
+      "lon": 10.001063,
+      "lat": 53.555798,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/266_39",
+      "distanceOnRoute": 271.8917465654401,
+      "distanceToNextSignal": 140.3352620817173
+    },
+    {
+      "lon": 10.001185,
+      "lat": 53.555841,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/266_39",
+      "distanceOnRoute": 281.287139577018,
+      "distanceToNextSignal": 130.93986907013937
+    },
+    {
+      "lon": 10.001344,
+      "lat": 53.55593,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/266_39",
+      "distanceOnRoute": 295.74915437703754,
+      "distanceToNextSignal": 116.47785427011985
+    },
+    {
+      "lon": 10.00153,
+      "lat": 53.556097,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/266_39",
+      "distanceOnRoute": 318.0516812518792,
+      "distanceToNextSignal": 94.1753273952782
+    },
+    {
+      "lon": 10.001745,
+      "lat": 53.556243,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/266_39",
+      "distanceOnRoute": 339.66314531976803,
+      "distanceToNextSignal": 72.56386332738936
+    },
+    {
+      "lon": 10.002595,
+      "lat": 53.556654,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/266_39",
+      "distanceOnRoute": 412.2270086471574,
+      "distanceToNextSignal": 0
+    },
+    {
+      "lon": 10.002595,
+      "lat": 53.556654,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 412.2270086471574,
+      "distanceToNextSignal": null
+    },
+    {
+      "lon": 10.00276,
+      "lat": 53.556554,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 427.82945324144896,
+      "distanceToNextSignal": null
+    },
+    {
+      "lon": 10.00286,
+      "lat": 53.556518,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 435.57358727597756,
+      "distanceToNextSignal": null
+    }
+  ],
+  "signalGroups": {
+    "hamburg/266_39": {
+      "label": "hamburg/266_39",
+      "position": {
+        "lon": 10.0026089,
+        "lat": 53.5568295
+      },
+      "id": "hamburg/266_39",
+      "lsaId": "2535",
+      "connectionId": "39",
+      "laneType": "Radfahrer"
+    },
+    "hamburg/200_41": {
+      "label": "hamburg/200_41",
+      "position": {
+        "lon": 10.0006337,
+        "lat": 53.5553729
+      },
+      "id": "hamburg/200_41",
+      "lsaId": "1908",
+      "connectionId": "41",
+      "laneType": "Radfahrer"
+    }
+  },
+  "crossings": [
+    {
+      "name": "Ferdinandstor",
+      "position": {
+        "lon": 10.000825326577601,
+        "lat": 53.55559183212429
+      },
+      "connected": true
+    },
+    {
+      "name": "Ballindamm / Brandsende",
+      "position": {
+        "lon": 9.999920245664757,
+        "lat": 53.55496093266947
+      },
+      "connected": false
+    },
+    {
+      "name": "LSA 2535",
+      "position": {
+        "lon": 10.002595,
+        "lat": 53.556654
+      },
+      "connected": true
+    }
+  ]
+}

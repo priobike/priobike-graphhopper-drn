@@ -1,0 +1,151 @@
+{
+  "route": [
+    {
+      "lon": 9.978725,
+      "lat": 53.564117,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/413_7",
+      "distanceOnRoute": 0,
+      "distanceToNextSignal": 210.52581710140544
+    },
+    {
+      "lon": 9.979962,
+      "lat": 53.564087,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/413_7",
+      "distanceOnRoute": 82.03026239580923,
+      "distanceToNextSignal": 128.4955547055962
+    },
+    {
+      "lon": 9.981901213472904,
+      "lat": 53.56407650775651,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/413_7",
+      "distanceOnRoute": 210.52581710140544,
+      "distanceToNextSignal": 0
+    },
+    {
+      "lon": 9.983104,
+      "lat": 53.56407,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/2150_8",
+      "distanceOnRoute": 290.22449655907394,
+      "distanceToNextSignal": 421.95336172701843
+    },
+    {
+      "lon": 9.983515,
+      "lat": 53.56404,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/2150_8",
+      "distanceOnRoute": 317.6608663177551,
+      "distanceToNextSignal": 394.51699196833727
+    },
+    {
+      "lon": 9.983988,
+      "lat": 53.56398,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/2150_8",
+      "distanceOnRoute": 349.704935757518,
+      "distanceToNextSignal": 362.4729225285744
+    },
+    {
+      "lon": 9.984493,
+      "lat": 53.563882,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/2150_8",
+      "distanceOnRoute": 384.8986245295989,
+      "distanceToNextSignal": 327.27923375649345
+    },
+    {
+      "lon": 9.984807,
+      "lat": 53.563787,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/2150_8",
+      "distanceOnRoute": 408.23654583519954,
+      "distanceToNextSignal": 303.94131245089284
+    },
+    {
+      "lon": 9.985444,
+      "lat": 53.563532,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/2150_8",
+      "distanceOnRoute": 459.0983801993005,
+      "distanceToNextSignal": 253.07947808679188
+    },
+    {
+      "lon": 9.988329312629515,
+      "lat": 53.56204206238316,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/2150_8",
+      "distanceOnRoute": 712.1778582860924,
+      "distanceToNextSignal": 0
+    },
+    {
+      "lon": 9.989197,
+      "lat": 53.561594,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/271_1",
+      "distanceOnRoute": 788.2863233517861,
+      "distanceToNextSignal": 10.21765727655054
+    },
+    {
+      "lon": 9.989298600527539,
+      "lat": 53.56152494056669,
+      "alt": 0.0,
+      "signalGroupId": "hamburg/271_1",
+      "distanceOnRoute": 798.5039806283366,
+      "distanceToNextSignal": 0
+    },
+    {
+      "lon": 9.989478,
+      "lat": 53.561403,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 816.5456595988205,
+      "distanceToNextSignal": null
+    },
+    {
+      "lon": 9.989733,
+      "lat": 53.561157,
+      "alt": 0.0,
+      "signalGroupId": null,
+      "distanceOnRoute": 848.7190039985293,
+      "distanceToNextSignal": null
+    }
+  ],
+  "signalGroups": {
+    "hamburg/413_7": {
+      "label": "hamburg/413_7",
+      "position": {
+        "lon": 9.9819013,
+        "lat": 53.5640925
+      },
+      "id": "hamburg/413_7",
+      "lsaId": "1659",
+      "connectionId": "7",
+      "laneType": "Radfahrer"
+    },
+    "hamburg/2150_8": {
+      "label": "hamburg/2150_8",
+      "position": {
+        "lon": 9.9883362,
+        "lat": 53.5620554
+      },
+      "id": "hamburg/2150_8",
+      "lsaId": "1306",
+      "connectionId": "8",
+      "laneType": "Radfahrer"
+    },
+    "hamburg/271_1": {
+      "label": "hamburg/271_1",
+      "position": {
+        "lon": 9.9893104,
+        "lat": 53.5615423
+      },
+      "id": "hamburg/271_1",
+      "lsaId": "2287",
+      "connectionId": "1",
+      "laneType": "Radfahrer"
+    }
+  }
+}
