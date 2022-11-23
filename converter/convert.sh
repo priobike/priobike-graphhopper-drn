@@ -26,12 +26,9 @@ echo "Postgres server is up!"
 
 echo "Transforming DRN into OSM..."
 python3 drn_transform.py
-
-# FIXME: We currently use the non-conflated data, since the build
-# runs out of memory on the CI server.
-# echo "Preparing OSM dataset outside of Hamburg..."
-# python3 osm_extract.py
-# echo "Find matches between DRN nodes and OSM nodes..."
-# python3 postgis_connector.py
-# echo "Conflating OSM and DRN..."
-# python3 map_conflation.py
+echo "Preparing OSM dataset outside of Hamburg..."
+python3 osm_extract.py
+echo "Find matches between DRN nodes and OSM nodes..."
+python3 postgis_connector.py
+echo "Conflating OSM and DRN..."
+python3 map_conflation.py

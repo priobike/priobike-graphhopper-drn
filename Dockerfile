@@ -65,10 +65,7 @@ COPY preheat.sh .
 COPY run.sh .
 COPY config-bike.yml .
 
-# FIXME: We currently use the non-conflated data, since the build
-# runs out of memory on the CI server.
-# COPY --from=builder /app/resources/osm_with_drn_conflated.osm map.osm
-COPY --from=builder /app/resources/drn_as_osm.osm map.osm
+COPY --from=builder /app/resources/osm_with_drn_conflated.osm map.osm
 
 RUN ./preheat.sh 
 
