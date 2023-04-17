@@ -103,27 +103,24 @@ radweg_art_mapping = {
     },
     "Straße mit Mischverkehr ab 50 km/h": {
         "highway": "tertiary",
-        "bicycle": "yes",
     },
     "Straße mit Mischverkehr bis 30 km/h": {
         "highway": "residential",
-        "bicycle": "yes",
     },
     "Verkehrsberuhigter Bereich / Befahrbarer Wohnweg": {
         "highway": "living_street",
-        "bicycle": "yes",
     },
     "Verkehrsberuhigter Geschäftsbereich": {
         "highway": "living_street",
-        "bicycle": "yes",
     },
     "Wege in Grünflächen": {
         "highway": "path",
-        "bicycle": "yes",
+        "bicycle": "designated",
+        "foot": "designated",
+        "segregated": "no",
     },
     "Wirtschaftsweg": {
         "highway": "track",
-        "bicycle": "yes",
     },
 }
 
