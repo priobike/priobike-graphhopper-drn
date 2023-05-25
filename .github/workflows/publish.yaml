@@ -29,9 +29,9 @@ on:
 
 jobs:
   publish:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     container: docker:latest
-
+  
     permissions:
       contents: read
       packages: write
