@@ -1,14 +1,50 @@
-# GraphHopper-DRN
+# 🚴‍♂️ GraphHopper-DRN: GraphHopper for the Digitales Radverkehrsnetz (DRN) dataset of Hamburg.
 
-Credit: Max Lorenz
+Welcome to our custom GraphHopper routing engine! This powerful routing engine allows you to calculate optimized routes and navigation instructions based on various transportation modes, such as driving, cycling, or walking. 
 
-# Overview
+The routing foundation is optimized for bicycles and is based on the [Digitales Radverkehrsnetz (DRN)](https://metaver.de/trefferanzeige?docuuid=EA847D9F-6403-4B75-BCDB-73F831F960C7) dataset of Hamburg. The DRN dataset is a collection of all bicycle paths in Hamburg and is provided by the Behörde für Verkehr und Mobilitätswende, (BVM).
 
-## Graphhopper Configurations for DRN, OSM and Map-Conflated
+In this way, it is tailored for high-precision bike routing. We use this system for our navigation app for cyclists, to obtain highly precise routes for green light optimal speed advisory (GLOSA). However it can also be used for other purposes.
 
-This directories contain dependencies to build working GraphHopper images. 
+## Features
 
-## Converter 
+- Optimized Routing: Calculate the most efficient routes for bicycles in Hamburg using the DRN dataset.
+- Multiple Transportation Modes: Choose between different transportation modes, including cycling, driving, and walking. You may also choose between different types of bicycles, such as city bikes, mountain bikes, or racing bikes.
+- Turn-by-Turn Navigation: Get detailed navigation instructions for each step of the route.
+- Customizable Routing Profiles: Customize the routing profiles to suit your specific needs and preferences.
+- Fast and Scalable: Benefit from the speed and scalability of the GraphHopper routing engine.
+- Many more: See the [GraphHopper documentation](https://docs.graphhopper.com/) for more features.
+
+## Examples
+
+Here's an example of how to calculate a bike route using the GraphHopper-DRN API:
+
+```
+curl "http://localhost:8989/route?profile=bike_default&point=53.5511,9.9937&point=53.5449,10.0059"
+```
+
+This request calculates a bike route between the coordinates 53.5511,9.9937 and 53.5449,10.0059. For more examples and information, see the [GraphHopper documentation](https://docs.graphhopper.com/).
+
+## Quickstart
+
+We provide a Docker image for easy deployment. To get started, simply run the following command:
+
+```
+docker build -t graphhopper-drn .
+docker run -p 8989:8989 graphhopper-drn
+```
+
+The `docker build` step will perform all necessary data preprocessing and routing database preheating. The final image is ready-to-use and can be started with `docker run`. The routing engine will be available at `http://localhost:8989`.
+
+## License
+
+GraphHopper-DRN is released under the MIT License.
+
+## The Authors
+
+Philipp Matthes, Thomas Springer, Daniel Jeschor. Additional credit: Max Lorenz. This project is currently considered for publication. Citation information will follow.
+
+## Technical Details for the Converter
 
 Python project responsible for conversions on used datasets and creation of intermediate datasets.
 
