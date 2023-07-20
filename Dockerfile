@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
     libboost-dev libboost-system-dev libboost-filesystem-dev \
     libexpat1-dev zlib1g-dev libbz2-dev libpq-dev libproj-dev \
     lua5.3 liblua5.3-dev pandoc postgresql postgresql-contrib \
+    nlohmann-json3-dev pyosmium \
     python3 python3-pip python3-venv
 
 ENV VIRTUAL_ENV=/opt/venv
