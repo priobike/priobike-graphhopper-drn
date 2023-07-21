@@ -35,7 +35,7 @@ RUN mkdir resources
 
 # Build from source since the version is important.
 RUN apt-get install -y git
-RUN git clone https://github.com/openstreetmap/osm2pgsql.git
+RUN git clone --depth 1 --branch 1.8.1 https://github.com/openstreetmap/osm2pgsql.git
 RUN cd osm2pgsql && mkdir build && cd build && cmake .. && make && make install && cd ../..
 
 # Use this argument to invalidate the cache of subsequent steps.
