@@ -110,6 +110,9 @@ class MapTransformer:
             target_id = feature.findall("target")[0].text
 
             line_string = geom[0][1] if isinstance(geom[0][0], etree._Comment) else geom[0][0]
+            if "NaN" in line_string[0].text:
+                logger.warning(f"Generating src-target to average coordinate map: 'NaN' in line string from source: {src_id} to target: {target_id} -> Skipping feature")
+                continue
             # coordinates of points defining the way [lat, lon, lat, lon, ...]
             positions = line_string[0].text.split(" ")
             it = iter(positions)
@@ -278,6 +281,9 @@ class MapTransformer:
         geom = feature.findall("geom")
         if len(geom) > 0:
             line_string = geom[0][1] if isinstance(geom[0][0], etree._Comment) else geom[0][0]
+            if "NaN" in line_string[0].text:
+                logger.warning(f"Parsing geometry: 'NaN' in line string from source: {feature.findall('source')[0].text} to target: {feature.findall('target')[0].text} -> Skipping feature")
+                return
             # coordinates of points defining the way [lat, lon, lat, lon, ...]
             positions = line_string[0].text.split(" ")
             it = iter(positions)
@@ -332,7 +338,6 @@ class MapTransformer:
         tree = self.osm_tree.getroottree()
         tree.write(TRANSFORMED_DRN_FILEPATH, encoding='utf-8', xml_declaration=True, pretty_print=True)
         logger.info("Sort resulting file.")
-        subprocess.run([f'osmium check-refs {TRANSFORMED_DRN_FILEPATH}'], shell=True)
         subprocess.run([f'osmium sort {TRANSFORMED_DRN_FILEPATH} -o {TRANSFORMED_DRN_FILEPATH} --overwrite'], shell=True)
 
 

@@ -58,9 +58,6 @@ RUN ./convert.sh
 
 FROM openjdk:8 AS runner
 
-# Use this argument to invalidate the cache of subsequent steps. Need to be put here again because of the multi-stage build.
-ARG CACHE_DATE=1970-01-01
-
 WORKDIR /graphhopper
 
 RUN wget https://github.com/graphhopper/graphhopper/releases/download/5.3/graphhopper-web-5.3.jar
