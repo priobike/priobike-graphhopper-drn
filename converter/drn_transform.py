@@ -332,6 +332,7 @@ class MapTransformer:
         tree = self.osm_tree.getroottree()
         tree.write(TRANSFORMED_DRN_FILEPATH, encoding='utf-8', xml_declaration=True, pretty_print=True)
         logger.info("Sort resulting file.")
+        subprocess.run([f'osmium check-refs {TRANSFORMED_DRN_FILEPATH}'], shell=True)
         subprocess.run([f'osmium sort {TRANSFORMED_DRN_FILEPATH} -o {TRANSFORMED_DRN_FILEPATH} --overwrite'], shell=True)
 
 
