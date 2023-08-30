@@ -1,6 +1,6 @@
 # 🚴‍♂️ GraphHopper-DRN: GraphHopper for the Digitales Radverkehrsnetz (DRN) dataset of Hamburg.
 
-For DGM-1 Support see https://github.com/priobike/priobike-graphhopper-dgm
+For DGM Support see https://github.com/priobike/priobike-graphhopper-dgm
 
 Welcome to our custom GraphHopper routing engine! This powerful routing engine allows you to calculate optimized routes and navigation instructions based on various transportation modes, such as driving, cycling, or walking. 
 
