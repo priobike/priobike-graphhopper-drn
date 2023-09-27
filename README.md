@@ -1,5 +1,16 @@
 # 🚴‍♂️ GraphHopper-DRN: GraphHopper for the Digitales Radverkehrsnetz (DRN) dataset of Hamburg.
 
+```bibtex
+@inproceedings{matthes2023accurate,
+  title={Accurate Bike Routing for Lane Prediction in GLOSA Apps via Infrastructure Reference Models},
+  author={Matthes, Philipp and Springer, Thomas and Daniel, Jeschor},
+  booktitle={2023 IEEE International Conference on Intelligent Transportation Systems (ITSC)},
+  pages={1--6},
+  year={2023},
+  organization={IEEE}
+}
+```
+
 For DGM Support see https://github.com/priobike/priobike-graphhopper-dgm
 
 Welcome to our custom GraphHopper routing engine! This powerful routing engine allows you to calculate optimized routes and navigation instructions based on various transportation modes, such as driving, cycling, or walking. 
