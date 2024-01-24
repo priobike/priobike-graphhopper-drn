@@ -55,7 +55,7 @@ GraphHopper-DRN is released under the MIT License.
 
 ## The Authors
 
-Philipp Matthes, Thomas Springer, Daniel Jeschor. Additional credit: Max Lorenz. This project is currently considered for publication. Citation information will follow.
+Philipp Matthes, Thomas Springer, Daniel Jeschor. Additional credit: Max Lorenz.
 
 ## Technical Details for the Converter
 
