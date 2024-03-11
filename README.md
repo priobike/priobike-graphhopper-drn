@@ -11,8 +11,6 @@
 }
 ```
 
-For DGM Support see https://github.com/priobike/priobike-graphhopper-dgm
-
 Welcome to our custom GraphHopper routing engine! This powerful routing engine allows you to calculate optimized routes and navigation instructions based on various transportation modes, such as driving, cycling, or walking. 
 
 The routing foundation is optimized for bicycles and is based on the [Digitales Radverkehrsnetz (DRN)](https://metaver.de/trefferanzeige?docuuid=EA847D9F-6403-4B75-BCDB-73F831F960C7) dataset of Hamburg. The DRN dataset is a collection of all bicycle paths in Hamburg and is provided by the Behörde für Verkehr und Mobilitätswende, (BVM).
