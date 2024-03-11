@@ -1,6 +1,20 @@
-ARG BUILDER_IMAGE=postgis/postgis:14-3.3
-# For faster builds on ARM, use --build-arg BUILDER_IMAGE="ghcr.io/baosystems/postgis:14-3.3"
-FROM $BUILDER_IMAGE as builder
+FROM maven as dgm-builder
+
+WORKDIR /app
+# Clone graphhopper 8.0 from https://github.com/graphhopper/graphhopper
+RUN git clone --branch 8.0 --depth 1 https://github.com/graphhopper/graphhopper
+WORKDIR /app/graphhopper
+
+# Inject our custom DGM code
+COPY ./graphhopper .
+
+# Build
+RUN mvn -B package -DskipTests=true
+
+# Make sure the jar is available in the next stage
+RUN cp web/target/graphhopper-web-*.jar /app/graphhopper-web.jar
+
+FROM postgis/postgis:14-3.3 as builder
 # This docker image is based on the bullseye operating system
 # See: https://github.com/postgis/docker-postgis/blob/master/14-3.3/Dockerfile
 
@@ -60,7 +74,8 @@ FROM openjdk:8 AS runner
 
 WORKDIR /graphhopper
 
-RUN wget https://github.com/graphhopper/graphhopper/releases/download/5.3/graphhopper-web-5.3.jar
+# Get the jar from the first build stage
+COPY --from=dgm-builder /app/graphhopper/web/target/graphhopper-web-*.jar graphhopper-web.jar
 
 COPY preheat.sh .
 COPY run.sh .
