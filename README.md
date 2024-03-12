@@ -41,8 +41,13 @@ This request calculates a bike route between the coordinates 53.5511,9.9937 and 
 We provide a Docker image for easy deployment. To get started, simply run the following command:
 
 ```
-docker build -t graphhopper-drn .
-docker run -p 8989:8989 graphhopper-drn
+./run-drn.sh
+```
+
+You can also test with OSM data for Hamburg:
+
+```
+./run-osm.sh
 ```
 
 The `docker build` step will perform all necessary data preprocessing and routing database preheating. The final image is ready-to-use and can be started with `docker run`. The routing engine will be available at `http://localhost:8989`.

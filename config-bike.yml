@@ -19,7 +19,7 @@ graphhopper:
   # Default values are: road_class,road_class_link,road_environment,max_speed,road_access (since #1805)
   # More are: surface,max_width,max_height,max_weight,max_axle_load,max_length,hazmat,hazmat_tunnel,hazmat_water,toll,track_type,
   #           mtb_rating,hiking_rating,horse_rating,lanes
-  graph.encoded_values: surface,max_speed,smoothness,lanes,road_class
+  graph.encoded_values: surface,max_speed,smoothness,lanes,road_class,average_slope,max_slope
 
   ##### Routing Profiles ####
 
@@ -50,18 +50,21 @@ graphhopper:
     # Bike doesn't consider elevation data.
     - name: bike_default
       vehicle: bike
-      weighting: short_fastest
+      weighting: custom
+      custom_model: {}
     - name: bike_shortest
       vehicle: bike
-      weighting: shortest
+      weighting: custom
+      custom_model: {}
     - name: bike_fastest
       vehicle: bike
-      weighting: fastest
+      weighting: custom
+      custom_model: {}
     
     # Bike2 considers elevation data (avoid uphills).
     - name: bike2_default
       vehicle: bike
-      weighting: short_fastest
+      weighting: custom
       custom_model: {
         "speed": [
           { "if": "average_slope >= 15", "limit_to": "3" },
@@ -73,7 +76,7 @@ graphhopper:
       }
     - name: bike2_shortest
       vehicle: bike
-      weighting: shortest
+      weighting: custom
       custom_model: {
         "speed": [
           { "if": "average_slope >= 15", "limit_to": "3" },
@@ -85,7 +88,7 @@ graphhopper:
       }
     - name: bike2_fastest
       vehicle: bike
-      weighting: fastest
+      weighting: custom
       custom_model: {
         "speed": [
           { "if": "average_slope >= 15", "limit_to": "3" },
@@ -98,23 +101,103 @@ graphhopper:
 
     - name: racingbike_default
       vehicle: racingbike
-      weighting: short_fastest
+      weighting: custom
+      custom_model: {}
     - name: racingbike_shortest
       vehicle: racingbike
-      weighting: shortest
+      weighting: custom
+      custom_model: {}
     - name: racingbike_fastest
       vehicle: racingbike
-      weighting: fastest
+      weighting: custom
+      custom_model: {}
+
+    - name: racingbike2_default
+      vehicle: racingbike
+      weighting: custom
+      custom_model: {
+        "speed": [
+          { "if": "average_slope >= 15", "limit_to": "3" },
+          { "if": "average_slope >= 12", "limit_to": "6" },
+          { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
+          { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
+          { "else_if": "average_slope <= -4", "multiply_by": "1.10" }
+        ]
+      }
+    - name: racingbike2_shortest
+      vehicle: racingbike
+      weighting: custom
+      custom_model: {
+        "speed": [
+          { "if": "average_slope >= 15", "limit_to": "3" },
+          { "if": "average_slope >= 12", "limit_to": "6" },
+          { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
+          { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
+          { "else_if": "average_slope <= -4", "multiply_by": "1.10" }
+        ]
+      }
+    - name: racingbike2_fastest
+      vehicle: racingbike
+      weighting: custom
+      custom_model: {
+        "speed": [
+          { "if": "average_slope >= 15", "limit_to": "3" },
+          { "if": "average_slope >= 12", "limit_to": "6" },
+          { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
+          { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
+          { "else_if": "average_slope <= -4", "multiply_by": "1.10" }
+        ]
+      }
 
     - name: mtb_default
       vehicle: mtb
-      weighting: short_fastest
+      weighting: custom
+      custom_model: {}
     - name: mtb_shortest
       vehicle: mtb
-      weighting: shortest
+      weighting: custom
+      custom_model: {}
     - name: mtb_fastest
       vehicle: mtb
-      weighting: fastest
+      weighting: custom
+      custom_model: {}
+
+    - name: mtb2_default
+      vehicle: mtb
+      weighting: custom
+      custom_model: {
+        "speed": [
+          { "if": "average_slope >= 15", "limit_to": "3" },
+          { "if": "average_slope >= 12", "limit_to": "6" },
+          { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
+          { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
+          { "else_if": "average_slope <= -4", "multiply_by": "1.10" }
+        ]
+      }
+    - name: mtb2_shortest
+      vehicle: mtb
+      weighting: custom
+      custom_model: {
+        "speed": [
+          { "if": "average_slope >= 15", "limit_to": "3" },
+          { "if": "average_slope >= 12", "limit_to": "6" },
+          { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
+          { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
+          { "else_if": "average_slope <= -4", "multiply_by": "1.10" }
+        ]
+      }
+    - name: mtb2_fastest
+      vehicle: mtb
+      weighting: custom
+      custom_model: {
+        "speed": [
+          { "if": "average_slope >= 15", "limit_to": "3" },
+          { "if": "average_slope >= 12", "limit_to": "6" },
+          { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
+          { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
+          { "else_if": "average_slope <= -4", "multiply_by": "1.10" }
+        ]
+      }
 
   # Speed mode:
   # Its possible to speed up routing by doing a special graph preparation (Contraction Hierarchies, CH). This requires
@@ -197,7 +280,6 @@ graphhopper:
   # You can limit the max distance between two consecutive waypoints of flexible routing requests to be less or equal
   # the given distance in meter. Default is set to 1000km.
   routing.non_ch.max_waypoint_distance: 1000000
-
 
   ##### Storage #####
 
