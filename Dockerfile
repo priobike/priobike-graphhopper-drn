@@ -59,7 +59,6 @@ FROM openjdk:8 AS osm-dgm-runner
 WORKDIR /graphhopper
 # Get the jar from the first build stage
 COPY --from=dgm-builder /app/graphhopper/web/target/graphhopper-web-*.jar graphhopper-web.jar
-COPY preheat.sh .
 COPY config-bike.yml .
 ARG CACHE_DATE=1970-01-01
 RUN wget http://download.geofabrik.de/europe/germany/hamburg-latest.osm.pbf
@@ -74,10 +73,10 @@ ENTRYPOINT java -Ddw.server.application_connectors[0].bind_host=0.0.0.0 \
 FROM openjdk:8 AS drn-dgm-runner
 WORKDIR /graphhopper
 # Get the jar from the first build stage
-COPY --from=drn-builder /app/graphhopper/web/target/graphhopper-web-*.jar graphhopper-web.jar
+COPY --from=dgm-builder /app/graphhopper/web/target/graphhopper-web-*.jar graphhopper-web.jar
 COPY preheat.sh .
 COPY config-bike.yml .
-COPY --from=builder /app/resources/osm_with_drn_conflated.osm map.osm
+COPY --from=drn-builder /app/resources/osm_with_drn_conflated.osm map.osm
 RUN ./preheat.sh 
 HEALTHCHECK --interval=5s --timeout=3s CMD curl --fail http://localhost:8989/health || exit 1
 ENTRYPOINT java -Ddw.server.application_connectors[0].bind_host=0.0.0.0 \
