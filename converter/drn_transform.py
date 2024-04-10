@@ -1,9 +1,10 @@
 import datetime
+import re
 
 import logging
 import subprocess
 from collections import defaultdict
-from typing import List, Tuple
+from typing import List, Set, Tuple
 
 from lxml import etree
 from lxml.etree import Element
@@ -27,31 +28,28 @@ DRN_FILEPATH = os.getenv('DRN_FILEPATH')
 TRANSFORMED_DRN_FILEPATH = os.getenv("TRANSFORMED_DRN_FILEPATH")
 ENABLE_TRAVELLING_ONEWAY = get_bool_variable("ENABLE_TRAVELLING_ONEWAY")
 ONEWAY_TRAVEL_BY_SETTING_MAX_SPEED = get_bool_variable("ONEWAY_TRAVEL_BY_SETTING_MAX_SPEED")
+OSM_RESULT_FILE_PATH = os.getenv("OSM_FILEPATH") or "./resources/osm_with_hamburg_cut_out_medium.osm"
 
-
-def transform_drn_to_osm():
-    transformer = MapTransformer(DRN_FILEPATH)
+def transform_drn_to_osm(occupied_osm_ids: Set[int]):
+    transformer = MapTransformer(DRN_FILEPATH, occupied_osm_ids)
     transformer.transform()
     transformer.write_osm_tree_to_file()
 
 
 class MapTransformer:
-    # osm ids are signed 64bit integers (max 9223372036854775807) with the maximum used id
-    # as of 21.05.2022 being 9759164264, assumes a starting/base id that's high enough that
-    # it's not reachable in a reasonable timespan
-    # shared between nodes, ways and relations although in theory can use different sequences
-    BASE_ID = 100_000_000_000
     TIMESTAMP = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
 
-    def __init__(self, drn_map_file_path: str):
+    def __init__(self, drn_map_file_path: str, occupied_osm_ids: Set[int]):
         self.drn_tree = etree.parse(drn_map_file_path)
         self.cleanup_namespaces()
 
         self.osm_tree = etree.Element("osm", version="0.6", generator="DRN_Map_Transformer")
-
-        self.current_way_id = self.BASE_ID
-        self.current_node_id = self.BASE_ID
-        self.current_relation_id = self.BASE_ID
+        
+        self.occupied_osm_ids = occupied_osm_ids
+        
+        self.current_way_id = 0
+        self.current_node_id = 0
+        self.current_relation_id = 0
 
         self.nodes: Dict[Coordinate, Element] = dict()
         self.nodes_by_own_id: Dict[str, Element] = dict()
@@ -86,14 +84,20 @@ class MapTransformer:
 
     def get_next_way_id(self) -> str:
         self.current_way_id += 1
+        while self.current_way_id in self.occupied_osm_ids:
+            self.current_way_id += 1
         return str(self.current_way_id)
 
     def get_next_node_id(self) -> str:
-        self.current_node_id -= 1
+        self.current_node_id += 1
+        while self.current_node_id in self.occupied_osm_ids:
+            self.current_node_id += 1
         return str(self.current_node_id)
 
     def get_next_relation_id(self) -> str:
         self.current_relation_id += 1
+        while self.current_relation_id in self.occupied_osm_ids:
+            self.current_relation_id += 1
         return str(self.current_relation_id)
 
     def generate_src_target_to_avg_coordinate_map(self, feature_members):
@@ -308,7 +312,7 @@ class MapTransformer:
                     coord = self.src_target_to_avg_coord[target_id]
 
                 if coord not in self.nodes:
-                    node_id = self.get_next_way_id()
+                    node_id = self.get_next_node_id()
                     node = etree.Element("node", id=node_id, version="1", timestamp=self.TIMESTAMP,
                                          lat=str(lat_epsg_4326), lon=str(lon_epsg_4326))
 
@@ -340,6 +344,16 @@ class MapTransformer:
         logger.info("Sort resulting file.")
         subprocess.run([f'osmium sort {TRANSFORMED_DRN_FILEPATH} -o {TRANSFORMED_DRN_FILEPATH} --overwrite'], shell=True)
 
+def gather_occupied_osm_ids():
+    osm_file_path = OSM_RESULT_FILE_PATH
+    with open(osm_file_path, "r") as file:
+        osm_xml_data = file.read()
+    occupied_ids = re.findall(r"\"[0-9]+\"", osm_xml_data)
+    unique_occupied_ids = set()
+    for id in occupied_ids:
+        unique_occupied_ids.add(int(id.replace("\"", "")))
+    return unique_occupied_ids
 
 if __name__ == '__main__':
-    transform_drn_to_osm()
+    occupied_osm_ids = gather_occupied_osm_ids()
+    transform_drn_to_osm(occupied_osm_ids)
