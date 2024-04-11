@@ -4,8 +4,9 @@ import os
 import subprocess
 import time
 from datetime import datetime
-from typing import Dict, List
+from typing import Dict, List, Set
 import logging
+import re
 
 from dotenv import load_dotenv
 from lxml import etree
@@ -56,7 +57,7 @@ def get_hamburg_boundary_line_string() -> LineString:
     return hamburg_boundary_line_projected
 
 
-def conflate():
+def conflate(occupied_osm_ids: Set[int]):
     logger.info(f"Load data files and create acceleration data structures ({round(time.time() - start_time, 2)}s)")
 
     with open(MATCHES_FILE_PATH) as f:
@@ -65,7 +66,7 @@ def conflate():
     drn_xml_data = load_osm_xml_data(DRN_FILE_PATH)
     osm_xml_data = load_osm_xml_data(OSM_FILE_PATH)
 
-    insert_osm_helper_points(osm_xml_data, matches)
+    insert_osm_helper_points(osm_xml_data, matches, occupied_osm_ids)
 
     drn_node_coord_mapping = create_node_id_to_coordinate_mapping(drn_xml_data)
     osm_node_coord_mapping = create_node_id_to_coordinate_mapping(osm_xml_data)
@@ -131,13 +132,16 @@ def get_node_ids_for_osm_way(osm_xml_data, osm_way_id) -> List[int]:
     return node_ids
 
 
-def insert_osm_helper_points(osm_xml_data, matches: Dict):
+def insert_osm_helper_points(osm_xml_data, matches: Dict, occupied_osm_ids: Set[int]):
     proj_to_32633 = get_projection_32633()
     proj_to_4326 = get_projection_4326()
     osm_node_coord_mapping = create_node_id_to_coordinate_mapping(osm_xml_data)
     hamburg_boundary_line_string = get_hamburg_boundary_line_string()
 
-    helper_point_id = 999_999_999_999_999_999
+    helper_point_id = 0
+    while helper_point_id in occupied_osm_ids:
+        helper_point_id += 1
+        
     geojson = {"type": "GeometryCollection", "geometries": []}
 
     logger.info(f"Insert auxiliary points {len(matches.keys())} ({round(time.time() - start_time, 2)}s)")
@@ -182,6 +186,8 @@ def insert_osm_helper_points(osm_xml_data, matches: Dict):
 
                 insert_idx += 1
                 helper_point_id += 1
+                while helper_point_id in occupied_osm_ids:
+                    helper_point_id += 1
 
     with open(AUXILIARY_POINTS_FILE_PATH, "w") as f:
         json.dump(geojson, f)
@@ -220,5 +226,22 @@ def append_osm_xml_data(osm_xml_data: ElementTree, additional_xml_data: ElementT
         osm_xml_root.append(ele)
 
 
+def gather_occupied_osm_ids():
+    drn_file_path = DRN_FILE_PATH
+    osm_file_path = OSM_FILE_PATH
+    with open(osm_file_path, "r") as file:
+        osm_xml_data = file.read()
+    occupied_ids_osm = re.findall(r"\"[0-9]+\"", osm_xml_data)
+    with open(drn_file_path, "r") as file:
+        drn_xml_data = file.read()
+    occupied_ids_drn = re.findall(r"\"[0-9]+\"", drn_xml_data)
+    unique_occupied_ids = set()
+    for id in occupied_ids_osm:
+        unique_occupied_ids.add(int(id.replace("\"", "")))
+    for id in occupied_ids_drn:
+        unique_occupied_ids.add(int(id.replace("\"", "")))
+    return unique_occupied_ids
+
 if __name__ == '__main__':
-    conflate()
+    occupied_osm_ids = gather_occupied_osm_ids()
+    conflate(occupied_osm_ids)
