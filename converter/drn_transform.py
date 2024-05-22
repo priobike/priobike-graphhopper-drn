@@ -1,15 +1,13 @@
 import datetime
-import re
-
 import logging
+import re
 import subprocess
 from collections import defaultdict
 from typing import List, Set, Tuple
 
+from epsg_converter import Converter
 from lxml import etree
 from lxml.etree import Element
-
-from epsg_converter import Converter
 from mapping import *
 from utils import get_bool_variable, haversine
 
@@ -193,6 +191,19 @@ class MapTransformer:
 
         self._parse_geometry(way, feature)
 
+        # Check if we need to skip this feature first.
+        for element in feature:
+            if "zeitbeschraenkung" in element.tag:
+                # If the element contains a time restriction, we need to throw it away.
+                # GraphHopper supports time restrictions through the oneway:conditional tag,
+                # but only for date ranges, not for time ranges. Furthermore, it may take
+                # the user some time to arrive at this way, meaning that the time restriction
+                # is much more complex and would need a lot of additional work to be implemented.
+                # Due to this reason, we decide to throw away the element.
+                # See https://github.com/priobike/priobike-graphhopper-drn/issues/17
+                logger.warning(f"Discarding time-restricted way: {way.attrib['id']}")
+                return
+
         for element in feature:
             if "status" in element.tag:
                 pass
@@ -240,10 +251,6 @@ class MapTransformer:
                 pass
             elif "benutzungspflicht" == element.tag:
                 # todo detect traffic sign from it
-                pass
-            elif "zeitbeschraenkung" == element.tag:
-                # could check if in combination with time restricted fußgängerzone - would require standardized
-                # time-format to be feasible
                 pass
 
             # the following remaining attributes are redundant and/or don't add new relevant information
