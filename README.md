@@ -15,6 +15,8 @@ Welcome to our custom GraphHopper routing engine! This powerful routing engine a
 
 The routing foundation is optimized for bicycles and is based on the [Digitales Radverkehrsnetz (DRN)](https://metaver.de/trefferanzeige?docuuid=EA847D9F-6403-4B75-BCDB-73F831F960C7) dataset of Hamburg. The DRN dataset is a collection of all bicycle paths in Hamburg and is provided by the Behörde für Verkehr und Mobilitätswende, (BVM).
 
+In addition to the DRN support, this modified version of GraphHopper also supports DGM-10. To load both datasets, the original routing engine licensed under Apache License 2.0 was extended by plugins.
+
 In this way, it is tailored for high-precision bike routing. We use this system for our navigation app for cyclists, to obtain highly precise routes for green light optimal speed advisory (GLOSA). However it can also be used for other purposes.
 
 ## Features
