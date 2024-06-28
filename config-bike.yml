@@ -19,7 +19,7 @@ graphhopper:
   # Default values are: road_class,road_class_link,road_environment,max_speed,road_access (since #1805)
   # More are: surface,max_width,max_height,max_weight,max_axle_load,max_length,hazmat,hazmat_tunnel,hazmat_water,toll,track_type,
   #           mtb_rating,hiking_rating,horse_rating,lanes
-  graph.encoded_values: surface,max_speed,smoothness,lanes,road_class,average_slope,max_slope,osm_way_id
+  graph.encoded_values: surface,max_speed,smoothness,lanes,road_class,average_slope,max_slope,osm_way_id,bike_access,backward_bike_access,roundabout,bike_priority,bike_average_speed,racingbike_access,backward_racingbike_access,racingbike_priority,racingbike_average_speed,mtb_access,backward_mtb_access,mtb_priority,mtb_average_speed,road_access,track_type,max_height,max_width,get_off_bike
 
   ##### Routing Profiles ####
 
@@ -49,100 +49,121 @@ graphhopper:
   profiles:
     # Bike doesn't consider elevation data.
     - name: bike_default
-      vehicle: bike
-      weighting: custom
-      custom_model: {}
+      custom_model_files: [bike.json]
     - name: bike_shortest
-      vehicle: bike
-      weighting: custom
-      custom_model: {}
+      custom_model_files: [bike.json]
     - name: bike_fastest
-      vehicle: bike
-      weighting: custom
-      custom_model: {}
+      custom_model_files: [bike.json]
     
     # Bike2 considers elevation data (avoid uphills).
     - name: bike2_default
-      vehicle: bike
-      weighting: custom
       custom_model: {
+        "priority": [
+          { "if": "true",  "multiply_by": "bike_priority" },
+          { "if": "!bike_access && (!backward_bike_access || roundabout)",  "multiply_by": "0" },
+          { "else_if": "!bike_access && backward_bike_access",  "multiply_by": "0.2" }
+        ],
         "speed": [
-          { "if": "average_slope >= 15", "limit_to": "3" },
-          { "if": "average_slope >= 12", "limit_to": "6" },
-          { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
-          { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
-          { "else_if": "average_slope <= -4", "multiply_by": "1.10" }
+          { "if": "true", "limit_to": "bike_average_speed" },
+          { "if": "!bike_access && backward_bike_access", "limit_to": "5" }
+          # Combining the 
+          { "if":      "average_slope >= 15", "limit_to": "3"},
+          { "else_if": "average_slope >= 12", "limit_to": "6"},
+          { "else_if": "average_slope >=  8", "multiply_by": "0.80"},
+          { "else_if": "average_slope >=  4", "multiply_by": "0.90"},
+          { "else_if": "average_slope <= -4", "multiply_by": "1.10"}
         ]
       }
     - name: bike2_shortest
-      vehicle: bike
-      weighting: custom
       custom_model: {
+        "priority": [
+          { "if": "true",  "multiply_by": "bike_priority" },
+          { "if": "!bike_access && (!backward_bike_access || roundabout)",  "multiply_by": "0" },
+          { "else_if": "!bike_access && backward_bike_access",  "multiply_by": "0.2" }
+        ],
         "speed": [
-          { "if": "average_slope >= 15", "limit_to": "3" },
-          { "if": "average_slope >= 12", "limit_to": "6" },
-          { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
-          { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
-          { "else_if": "average_slope <= -4", "multiply_by": "1.10" }
+          { "if": "true", "limit_to": "bike_average_speed" },
+          { "if": "!bike_access && backward_bike_access", "limit_to": "5" }
+          # TODO comment
+          { "if":      "average_slope >= 15", "limit_to": "3"},
+          { "else_if": "average_slope >= 12", "limit_to": "6"},
+          { "else_if": "average_slope >=  8", "multiply_by": "0.80"},
+          { "else_if": "average_slope >=  4", "multiply_by": "0.90"},
+          { "else_if": "average_slope <= -4", "multiply_by": "1.10"}
         ]
       }
     - name: bike2_fastest
-      vehicle: bike
-      weighting: custom
       custom_model: {
+        "priority": [
+          { "if": "true",  "multiply_by": "bike_priority" },
+          { "if": "!bike_access && (!backward_bike_access || roundabout)",  "multiply_by": "0" },
+          { "else_if": "!bike_access && backward_bike_access",  "multiply_by": "0.2" }
+        ],
         "speed": [
-          { "if": "average_slope >= 15", "limit_to": "3" },
-          { "if": "average_slope >= 12", "limit_to": "6" },
-          { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
-          { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
-          { "else_if": "average_slope <= -4", "multiply_by": "1.10" }
+          { "if": "true", "limit_to": "bike_average_speed" },
+          { "if": "!bike_access && backward_bike_access", "limit_to": "5" }
+          # TODO comment
+          { "if":      "average_slope >= 15", "limit_to": "3"},
+          { "else_if": "average_slope >= 12", "limit_to": "6"},
+          { "else_if": "average_slope >=  8", "multiply_by": "0.80"},
+          { "else_if": "average_slope >=  4", "multiply_by": "0.90"},
+          { "else_if": "average_slope <= -4", "multiply_by": "1.10"}
         ]
       }
 
     - name: racingbike_default
-      vehicle: racingbike
-      weighting: custom
-      custom_model: {}
+      custom_model_files: [racingbike.json]
     - name: racingbike_shortest
-      vehicle: racingbike
-      weighting: custom
-      custom_model: {}
+      custom_model_files: [racingbike.json]
     - name: racingbike_fastest
-      vehicle: racingbike
-      weighting: custom
-      custom_model: {}
+      custom_model_files: [racingbike.json]
 
     - name: racingbike2_default
-      vehicle: racingbike
-      weighting: custom
       custom_model: {
+         "priority": [
+          { "if": "true",  "multiply_by": "racingbike_priority" },
+          { "if": "!racingbike_access && (!backward_racingbike_access || roundabout)",  "multiply_by": "0" },
+          { "else_if": "!racingbike_access && backward_racingbike_access",  "multiply_by": "0.2" }
+        ],
         "speed": [
+          { "if": "true", "limit_to": "racingbike_average_speed" },
+          { "if": "!racingbike_access && backward_racingbike_access", "limit_to": "5" }
           { "if": "average_slope >= 15", "limit_to": "3" },
-          { "if": "average_slope >= 12", "limit_to": "6" },
+          { "else_if": "average_slope >= 12", "limit_to": "6" },
           { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
           { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
           { "else_if": "average_slope <= -4", "multiply_by": "1.10" }
         ]
       }
     - name: racingbike2_shortest
-      vehicle: racingbike
-      weighting: custom
       custom_model: {
+         "priority": [
+          { "if": "true",  "multiply_by": "racingbike_priority" },
+          { "if": "!racingbike_access && (!backward_racingbike_access || roundabout)",  "multiply_by": "0" },
+          { "else_if": "!racingbike_access && backward_racingbike_access",  "multiply_by": "0.2" }
+        ],
         "speed": [
+          { "if": "true", "limit_to": "racingbike_average_speed" },
+          { "if": "!racingbike_access && backward_racingbike_access", "limit_to": "5" }
           { "if": "average_slope >= 15", "limit_to": "3" },
-          { "if": "average_slope >= 12", "limit_to": "6" },
+          { "else_if": "average_slope >= 12", "limit_to": "6" },
           { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
           { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
           { "else_if": "average_slope <= -4", "multiply_by": "1.10" }
         ]
       }
     - name: racingbike2_fastest
-      vehicle: racingbike
-      weighting: custom
       custom_model: {
+         "priority": [
+          { "if": "true",  "multiply_by": "racingbike_priority" },
+          { "if": "!racingbike_access && (!backward_racingbike_access || roundabout)",  "multiply_by": "0" },
+          { "else_if": "!racingbike_access && backward_racingbike_access",  "multiply_by": "0.2" }
+        ],
         "speed": [
+          { "if": "true", "limit_to": "racingbike_average_speed" },
+          { "if": "!racingbike_access && backward_racingbike_access", "limit_to": "5" }
           { "if": "average_slope >= 15", "limit_to": "3" },
-          { "if": "average_slope >= 12", "limit_to": "6" },
+          { "else_if": "average_slope >= 12", "limit_to": "6" },
           { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
           { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
           { "else_if": "average_slope <= -4", "multiply_by": "1.10" }
@@ -150,49 +171,129 @@ graphhopper:
       }
 
     - name: mtb_default
-      vehicle: mtb
-      weighting: custom
-      custom_model: {}
+      custom_model_files: [mtb.json]
     - name: mtb_shortest
-      vehicle: mtb
-      weighting: custom
-      custom_model: {}
+      custom_model_files: [mtb.json]
     - name: mtb_fastest
-      vehicle: mtb
-      weighting: custom
-      custom_model: {}
+      custom_model_files: [mtb.json]
 
     - name: mtb2_default
-      vehicle: mtb
-      weighting: custom
       custom_model: {
+        "priority": [
+          { "if": "true",  "multiply_by": "mtb_priority" },
+          { "if": "!mtb_access && (!backward_mtb_access || roundabout)",  "multiply_by": "0" },
+          { "else_if": "!mtb_access && backward_mtb_access",  "multiply_by": "0.2" }
+        ],
         "speed": [
+          { "if": "true", "limit_to": "mtb_average_speed" },
+          { "if": "!mtb_access && backward_mtb_access", "limit_to": "5" }
           { "if": "average_slope >= 15", "limit_to": "3" },
-          { "if": "average_slope >= 12", "limit_to": "6" },
+          { "else_if": "average_slope >= 12", "limit_to": "6" },
           { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
           { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
           { "else_if": "average_slope <= -4", "multiply_by": "1.10" }
         ]
       }
     - name: mtb2_shortest
-      vehicle: mtb
-      weighting: custom
       custom_model: {
+        "priority": [
+          { "if": "true",  "multiply_by": "mtb_priority" },
+          { "if": "!mtb_access && (!backward_mtb_access || roundabout)",  "multiply_by": "0" },
+          { "else_if": "!mtb_access && backward_mtb_access",  "multiply_by": "0.2" }
+        ],
         "speed": [
+          { "if": "true", "limit_to": "mtb_average_speed" },
+          { "if": "!mtb_access && backward_mtb_access", "limit_to": "5" }
           { "if": "average_slope >= 15", "limit_to": "3" },
-          { "if": "average_slope >= 12", "limit_to": "6" },
+          { "else_if": "average_slope >= 12", "limit_to": "6" },
           { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
           { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
           { "else_if": "average_slope <= -4", "multiply_by": "1.10" }
         ]
       }
     - name: mtb2_fastest
-      vehicle: mtb
-      weighting: custom
       custom_model: {
+        "priority": [
+          { "if": "true",  "multiply_by": "mtb_priority" },
+          { "if": "!mtb_access && (!backward_mtb_access || roundabout)",  "multiply_by": "0" },
+          { "else_if": "!mtb_access && backward_mtb_access",  "multiply_by": "0.2" }
+        ],
         "speed": [
+          { "if": "true", "limit_to": "mtb_average_speed" },
+          { "if": "!mtb_access && backward_mtb_access", "limit_to": "5" }
           { "if": "average_slope >= 15", "limit_to": "3" },
-          { "if": "average_slope >= 12", "limit_to": "6" },
+          { "else_if": "average_slope >= 12", "limit_to": "6" },
+          { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
+          { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
+          { "else_if": "average_slope <= -4", "multiply_by": "1.10" }
+        ]
+      }
+
+    - name: cargo_default
+      custom_model_files: [cargo.json]
+    - name: cargo_shortest
+      custom_model_files: [cargo.json]
+    - name: cargo_fastest
+      custom_model_files: [cargo.json]
+
+    - name: cargo2_default
+      custom_model: {
+        "priority": [
+          { "if": "road_access == PRIVATE",  "multiply_by": "0" },
+          { "if": "road_class == STEPS", "multiply_by": 0 },
+          { "if": "surface == SAND", "multiply_by": 0.5 },
+          { "if": "track_type != MISSING && track_type != GRADE1", "multiply_by": 0.9 },
+          { "if": "get_off_bike", "multiply_by": 0.5 },
+          { "if": "max_height < 2.3", "multiply_by": 0 },
+          { "if": "max_width < 1.2", "multiply_by": 0 }
+        ],
+        "speed": [
+          { "if": "road_class == PRIMARY", "limit_to": 28 },
+          { "else": "", "limit_to": 25 }
+          { "if": "average_slope >= 15", "limit_to": "3" },
+          { "else_if": "average_slope >= 12", "limit_to": "6" },
+          { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
+          { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
+          { "else_if": "average_slope <= -4", "multiply_by": "1.10" }
+        ]
+      }
+    - name: cargo2_shortest
+      custom_model: {
+        "priority": [
+          { "if": "road_access == PRIVATE",  "multiply_by": "0" },
+          { "if": "road_class == STEPS", "multiply_by": 0 },
+          { "if": "surface == SAND", "multiply_by": 0.5 },
+          { "if": "track_type != MISSING && track_type != GRADE1", "multiply_by": 0.9 },
+          { "if": "get_off_bike", "multiply_by": 0.5 },
+          { "if": "max_height < 2.3", "multiply_by": 0 },
+          { "if": "max_width < 1.2", "multiply_by": 0 }
+        ],
+        "speed": [
+          { "if": "road_class == PRIMARY", "limit_to": 28 },
+          { "else": "", "limit_to": 25 }
+          { "if": "average_slope >= 15", "limit_to": "3" },
+          { "else_if": "average_slope >= 12", "limit_to": "6" },
+          { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
+          { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
+          { "else_if": "average_slope <= -4", "multiply_by": "1.10" }
+        ]
+      }
+    - name: cargo2_fastest
+      custom_model: {
+        "priority": [
+          { "if": "road_access == PRIVATE",  "multiply_by": "0" },
+          { "if": "road_class == STEPS", "multiply_by": 0 },
+          { "if": "surface == SAND", "multiply_by": 0.5 },
+          { "if": "track_type != MISSING && track_type != GRADE1", "multiply_by": 0.9 },
+          { "if": "get_off_bike", "multiply_by": 0.5 },
+          { "if": "max_height < 2.3", "multiply_by": 0 },
+          { "if": "max_width < 1.2", "multiply_by": 0 }
+        ],
+        "speed": [
+          { "if": "road_class == PRIMARY", "limit_to": 28 },
+          { "else": "", "limit_to": 25 }
+          { "if": "average_slope >= 15", "limit_to": "3" },
+          { "else_if": "average_slope >= 12", "limit_to": "6" },
           { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
           { "else_if": "average_slope >=  4", "multiply_by": "0.90" },
           { "else_if": "average_slope <= -4", "multiply_by": "1.10" }

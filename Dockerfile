@@ -1,7 +1,7 @@
 FROM maven as dgm-builder
 WORKDIR /app
 # Clone graphhopper 8.0 from https://github.com/graphhopper/graphhopper
-RUN git clone --branch 8.0 --depth 1 https://github.com/graphhopper/graphhopper
+RUN git clone --branch 9.1 --depth 1 https://github.com/graphhopper/graphhopper
 WORKDIR /app/graphhopper
 # Inject our custom DGM code
 COPY ./graphhopper .
@@ -55,7 +55,7 @@ COPY ./converter .
 RUN chmod +x convert.sh
 RUN ./convert.sh
 
-FROM openjdk:8 AS osm-dgm-runner
+FROM openjdk:17 AS osm-dgm-runner
 WORKDIR /graphhopper
 # Get the jar from the first build stage
 COPY --from=dgm-builder /app/graphhopper/web/target/graphhopper-web-*.jar graphhopper-web.jar
@@ -70,7 +70,7 @@ ENTRYPOINT java -Ddw.server.application_connectors[0].bind_host=0.0.0.0 \
     server \
     /graphhopper/config-bike.yml
 
-FROM openjdk:8 AS drn-dgm-runner
+FROM openjdk:17 AS drn-dgm-runner
 WORKDIR /graphhopper
 # Get the jar from the first build stage
 COPY --from=dgm-builder /app/graphhopper/web/target/graphhopper-web-*.jar graphhopper-web.jar
