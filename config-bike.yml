@@ -58,6 +58,7 @@ graphhopper:
     # Bike2 considers elevation data (avoid uphills).
     - name: bike2_default
       custom_model: {
+        # See /core/src/main/resources/com/graphhopper/custom_models/bike.json
         "priority": [
           { "if": "true",  "multiply_by": "bike_priority" },
           { "if": "!bike_access && (!backward_bike_access || roundabout)",  "multiply_by": "0" },
@@ -66,7 +67,7 @@ graphhopper:
         "speed": [
           { "if": "true", "limit_to": "bike_average_speed" },
           { "if": "!bike_access && backward_bike_access", "limit_to": "5" }
-          # Combining the 
+          # See /core/src/main/resources/com/graphhopper/custom_models/bike_elevation.json
           { "if":      "average_slope >= 15", "limit_to": "3"},
           { "else_if": "average_slope >= 12", "limit_to": "6"},
           { "else_if": "average_slope >=  8", "multiply_by": "0.80"},
@@ -76,6 +77,7 @@ graphhopper:
       }
     - name: bike2_shortest
       custom_model: {
+        # See /core/src/main/resources/com/graphhopper/custom_models/bike.json
         "priority": [
           { "if": "true",  "multiply_by": "bike_priority" },
           { "if": "!bike_access && (!backward_bike_access || roundabout)",  "multiply_by": "0" },
@@ -84,7 +86,7 @@ graphhopper:
         "speed": [
           { "if": "true", "limit_to": "bike_average_speed" },
           { "if": "!bike_access && backward_bike_access", "limit_to": "5" }
-          # TODO comment
+          # See /core/src/main/resources/com/graphhopper/custom_models/bike_elevation.json
           { "if":      "average_slope >= 15", "limit_to": "3"},
           { "else_if": "average_slope >= 12", "limit_to": "6"},
           { "else_if": "average_slope >=  8", "multiply_by": "0.80"},
@@ -94,6 +96,7 @@ graphhopper:
       }
     - name: bike2_fastest
       custom_model: {
+        # See /core/src/main/resources/com/graphhopper/custom_models/bike.json
         "priority": [
           { "if": "true",  "multiply_by": "bike_priority" },
           { "if": "!bike_access && (!backward_bike_access || roundabout)",  "multiply_by": "0" },
@@ -102,7 +105,7 @@ graphhopper:
         "speed": [
           { "if": "true", "limit_to": "bike_average_speed" },
           { "if": "!bike_access && backward_bike_access", "limit_to": "5" }
-          # TODO comment
+          # See /core/src/main/resources/com/graphhopper/custom_models/bike_elevation.json
           { "if":      "average_slope >= 15", "limit_to": "3"},
           { "else_if": "average_slope >= 12", "limit_to": "6"},
           { "else_if": "average_slope >=  8", "multiply_by": "0.80"},
@@ -120,7 +123,8 @@ graphhopper:
 
     - name: racingbike2_default
       custom_model: {
-         "priority": [
+        # See /core/src/main/resources/com/graphhopper/custom_models/racingbike.json
+        "priority": [
           { "if": "true",  "multiply_by": "racingbike_priority" },
           { "if": "!racingbike_access && (!backward_racingbike_access || roundabout)",  "multiply_by": "0" },
           { "else_if": "!racingbike_access && backward_racingbike_access",  "multiply_by": "0.2" }
@@ -128,6 +132,7 @@ graphhopper:
         "speed": [
           { "if": "true", "limit_to": "racingbike_average_speed" },
           { "if": "!racingbike_access && backward_racingbike_access", "limit_to": "5" }
+          # See /core/src/main/resources/com/graphhopper/custom_models/bike_elevation.json
           { "if": "average_slope >= 15", "limit_to": "3" },
           { "else_if": "average_slope >= 12", "limit_to": "6" },
           { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
@@ -137,7 +142,8 @@ graphhopper:
       }
     - name: racingbike2_shortest
       custom_model: {
-         "priority": [
+        # See /core/src/main/resources/com/graphhopper/custom_models/racingbike.json
+        "priority": [
           { "if": "true",  "multiply_by": "racingbike_priority" },
           { "if": "!racingbike_access && (!backward_racingbike_access || roundabout)",  "multiply_by": "0" },
           { "else_if": "!racingbike_access && backward_racingbike_access",  "multiply_by": "0.2" }
@@ -145,6 +151,7 @@ graphhopper:
         "speed": [
           { "if": "true", "limit_to": "racingbike_average_speed" },
           { "if": "!racingbike_access && backward_racingbike_access", "limit_to": "5" }
+          # See /core/src/main/resources/com/graphhopper/custom_models/bike_elevation.json
           { "if": "average_slope >= 15", "limit_to": "3" },
           { "else_if": "average_slope >= 12", "limit_to": "6" },
           { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
@@ -154,7 +161,8 @@ graphhopper:
       }
     - name: racingbike2_fastest
       custom_model: {
-         "priority": [
+        # See /core/src/main/resources/com/graphhopper/custom_models/racingbike.json
+        "priority": [
           { "if": "true",  "multiply_by": "racingbike_priority" },
           { "if": "!racingbike_access && (!backward_racingbike_access || roundabout)",  "multiply_by": "0" },
           { "else_if": "!racingbike_access && backward_racingbike_access",  "multiply_by": "0.2" }
@@ -162,6 +170,7 @@ graphhopper:
         "speed": [
           { "if": "true", "limit_to": "racingbike_average_speed" },
           { "if": "!racingbike_access && backward_racingbike_access", "limit_to": "5" }
+          # See /core/src/main/resources/com/graphhopper/custom_models/bike_elevation.json
           { "if": "average_slope >= 15", "limit_to": "3" },
           { "else_if": "average_slope >= 12", "limit_to": "6" },
           { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
@@ -179,6 +188,7 @@ graphhopper:
 
     - name: mtb2_default
       custom_model: {
+        # See /core/src/main/resources/com/graphhopper/custom_models/mtb.json
         "priority": [
           { "if": "true",  "multiply_by": "mtb_priority" },
           { "if": "!mtb_access && (!backward_mtb_access || roundabout)",  "multiply_by": "0" },
@@ -187,6 +197,7 @@ graphhopper:
         "speed": [
           { "if": "true", "limit_to": "mtb_average_speed" },
           { "if": "!mtb_access && backward_mtb_access", "limit_to": "5" }
+          # See /core/src/main/resources/com/graphhopper/custom_models/bike_elevation.json
           { "if": "average_slope >= 15", "limit_to": "3" },
           { "else_if": "average_slope >= 12", "limit_to": "6" },
           { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
@@ -196,6 +207,7 @@ graphhopper:
       }
     - name: mtb2_shortest
       custom_model: {
+        # See /core/src/main/resources/com/graphhopper/custom_models/mtb.json
         "priority": [
           { "if": "true",  "multiply_by": "mtb_priority" },
           { "if": "!mtb_access && (!backward_mtb_access || roundabout)",  "multiply_by": "0" },
@@ -204,6 +216,7 @@ graphhopper:
         "speed": [
           { "if": "true", "limit_to": "mtb_average_speed" },
           { "if": "!mtb_access && backward_mtb_access", "limit_to": "5" }
+          # See /core/src/main/resources/com/graphhopper/custom_models/bike_elevation.json
           { "if": "average_slope >= 15", "limit_to": "3" },
           { "else_if": "average_slope >= 12", "limit_to": "6" },
           { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
@@ -213,6 +226,7 @@ graphhopper:
       }
     - name: mtb2_fastest
       custom_model: {
+        # See /core/src/main/resources/com/graphhopper/custom_models/mtb.json
         "priority": [
           { "if": "true",  "multiply_by": "mtb_priority" },
           { "if": "!mtb_access && (!backward_mtb_access || roundabout)",  "multiply_by": "0" },
@@ -221,6 +235,7 @@ graphhopper:
         "speed": [
           { "if": "true", "limit_to": "mtb_average_speed" },
           { "if": "!mtb_access && backward_mtb_access", "limit_to": "5" }
+          # See /core/src/main/resources/com/graphhopper/custom_models/bike_elevation.json
           { "if": "average_slope >= 15", "limit_to": "3" },
           { "else_if": "average_slope >= 12", "limit_to": "6" },
           { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
@@ -238,6 +253,7 @@ graphhopper:
 
     - name: cargo2_default
       custom_model: {
+        # See /core/src/main/resources/com/graphhopper/custom_models/cargo_bike.json
         "priority": [
           { "if": "road_access == PRIVATE",  "multiply_by": "0" },
           { "if": "road_class == STEPS", "multiply_by": 0 },
@@ -250,6 +266,7 @@ graphhopper:
         "speed": [
           { "if": "road_class == PRIMARY", "limit_to": 28 },
           { "else": "", "limit_to": 25 }
+          # See /core/src/main/resources/com/graphhopper/custom_models/bike_elevation.json 
           { "if": "average_slope >= 15", "limit_to": "3" },
           { "else_if": "average_slope >= 12", "limit_to": "6" },
           { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
@@ -259,6 +276,7 @@ graphhopper:
       }
     - name: cargo2_shortest
       custom_model: {
+        # See /core/src/main/resources/com/graphhopper/custom_models/cargo_bike.json
         "priority": [
           { "if": "road_access == PRIVATE",  "multiply_by": "0" },
           { "if": "road_class == STEPS", "multiply_by": 0 },
@@ -271,6 +289,7 @@ graphhopper:
         "speed": [
           { "if": "road_class == PRIMARY", "limit_to": 28 },
           { "else": "", "limit_to": 25 }
+          # See /core/src/main/resources/com/graphhopper/custom_models/bike_elevation.json 
           { "if": "average_slope >= 15", "limit_to": "3" },
           { "else_if": "average_slope >= 12", "limit_to": "6" },
           { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
@@ -280,6 +299,7 @@ graphhopper:
       }
     - name: cargo2_fastest
       custom_model: {
+        # See /core/src/main/resources/com/graphhopper/custom_models/cargo_bike.json
         "priority": [
           { "if": "road_access == PRIVATE",  "multiply_by": "0" },
           { "if": "road_class == STEPS", "multiply_by": 0 },
@@ -292,6 +312,7 @@ graphhopper:
         "speed": [
           { "if": "road_class == PRIMARY", "limit_to": 28 },
           { "else": "", "limit_to": 25 }
+          # See /core/src/main/resources/com/graphhopper/custom_models/bike_elevation.json 
           { "if": "average_slope >= 15", "limit_to": "3" },
           { "else_if": "average_slope >= 12", "limit_to": "6" },
           { "else_if": "average_slope >=  8", "multiply_by": "0.80" },
