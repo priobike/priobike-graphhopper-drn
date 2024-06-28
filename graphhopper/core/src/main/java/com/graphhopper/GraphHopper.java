@@ -51,7 +51,6 @@ import com.graphhopper.storage.*;
 import com.graphhopper.storage.index.LocationIndex;
 import com.graphhopper.storage.index.LocationIndexTree;
 import com.graphhopper.util.*;
-import com.graphhopper.util.Parameters.Algorithms.RoundTrip;
 import com.graphhopper.util.Parameters.Landmark;
 import com.graphhopper.util.Parameters.Routing;
 import com.graphhopper.util.details.PathDetailsBuilderFactory;
@@ -664,11 +663,7 @@ public class GraphHopper {
         Map<String, PMap> encodedValuesWithProps = new LinkedHashMap<>();
         Arrays.stream(encodedValuesStr.split(","))
                 .filter(evStr -> !evStr.isBlank())
-                .forEach(evStr -> {
-                    String key = evStr.trim().split("\\|")[0];
-                    if (encodedValuesWithProps.put(key, new PMap(evStr)) != null)
-                        throw new IllegalArgumentException("duplicate encoded value in config graph.encoded_values: " + key);
-                });
+                .forEach(evStr -> encodedValuesWithProps.put(evStr.trim().split("\\|")[0], new PMap(evStr)));
         return encodedValuesWithProps;
     }
 
