@@ -245,11 +245,11 @@ graphhopper:
       }
 
     - name: cargo_default
-      custom_model_files: [cargo.json]
+      custom_model_files: [cargo_bike.json]
     - name: cargo_shortest
-      custom_model_files: [cargo.json]
+      custom_model_files: [cargo_bike.json]
     - name: cargo_fastest
-      custom_model_files: [cargo.json]
+      custom_model_files: [cargo_bike.json]
 
     - name: cargo2_default
       custom_model: {
